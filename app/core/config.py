@@ -3,7 +3,8 @@
 import os
 import yaml
 from typing import List, Optional
-from pydantic import BaseSettings, Field
+from pydantic import Field
+from pydantic_settings import BaseSettings
 from functools import lru_cache
 
 
@@ -38,9 +39,7 @@ class Settings(BaseSettings):
     arxiv_base_url: str = "http://export.arxiv.org/api/query"
     arxiv_max_results: int = 10
     
-    class Config:
-        env_file = ".env"
-        case_sensitive = False
+    model_config = {"env_file": ".env", "case_sensitive": False}
 
 
 def load_config_from_yaml(config_path: str = "config.yaml") -> dict:
